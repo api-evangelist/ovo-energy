@@ -1,0 +1,433 @@
+aid: ovo-energy
+name: OVO Energy
+review:
+  question: What real, public API surface does OVO Energy expose, and what energy-data
+    obligation actually applies to it?
+  date: '2026-07-27'
+  reviewer: API Evangelist
+  tier: utility-retailer
+  homeMarket: United Kingdom
+  primaryDomain: ovoenergy.com
+  verdict: >
+    Identity-only by evidence. OVO Energy publishes no developer portal, no API
+    documentation, no machine-readable contract, and no third-party route to a
+    customer's usage or billing data. Four developer subdomains do not resolve.
+    Every developer path on the marketing site 404s. api.ovoenergy.com resolves
+    and is live but answers every probed path with a bare text/plain 404. One real
+    consumer endpoint exists — smartpaymapi.ovoenergy.com/usage/api/half-hourly,
+    HTTP 401 JSON anonymously — but it is undocumented, unsupported, and gated to
+    a signed-in customer session, so it is recorded here and deliberately NOT
+    listed in apis[]. apis[] is empty. No OpenAPI was harvested and none was
+    authored, because authoring one here would be fabrication.
+mandate:
+  regime: smart-meter-infrastructure
+  regimeName: >
+    The GB smart metering programme — the Smart Energy Code (SEC) and the licensed
+    Data Communications Company (Smart DCC) monopoly, sitting under Ofgem electricity
+    and gas supply licence conditions. This is an INFRASTRUCTURE mandate on licensed
+    suppliers. It is emphatically not a consumer data right.
+  status: live-implemented
+  statusEvidence: >
+    The obligation and the implementation were checked as separate facts, and the
+    honest answer differs for each.
+
+    The obligation: OVO holds Ofgem electricity and gas supply licences and is
+    therefore a Smart Energy Code party and a DCC User, obliged to take all
+    reasonable steps to install smart meters and to communicate with SMETS2 devices
+    over the licensed DCC network. That obligation is real and is a licence
+    condition, not a voluntary posture.
+
+    The implementation: verified by direct anonymous HTTP probe on 2026-07-27, not
+    by reading a compliance page. The strongest single artefact is
+    https://smartpaymapi.ovoenergy.com/usage/api/half-hourly, which returned HTTP
+    401 with an application/json body to an unauthenticated caller — a live,
+    running service whose whole job is to serve half-hourly smart-meter consumption
+    to an authenticated OVO customer. Half-hourly data does not exist without a
+    SMETS2 estate and DCC traffic behind it. Supporting evidence: the ovoenergy.com
+    site map (249 URLs) carries eleven distinct smart-metering pages including
+    /smart-meters, /smart-meter-installation, /smart-meters/pay-as-you-go,
+    /smart-meters/4g-upgrade (the SMETS1 enrolment/4G migration programme) and
+    /guides/energy-guides/smets1-and-smets2-new-smart-meter-generation.
+
+    What could NOT be verified, stated plainly: no machine-readable register entry
+    was obtained. Ofgem's Public Register at https://epr.ofgem.gov.uk/ returned 200
+    but is a client-side React SPA with no accessible JSON search endpoint
+    (/api/Company/GetCompanies?searchText=OVO returned the SPA HTML shell).
+    smartenergycodecompany.co.uk resolves (200) but /sec-parties/ and /parties/
+    both 404. Elexon's Insights API returned 404 for a BSC-parties reference path.
+    So the licence/SEC/BSC membership is asserted on the basis of OVO being a
+    trading GB domestic supplier plus its own smart-meter operations, not on a
+    register row this review pulled.
+
+    The finding that matters more than the status value: this mandate is live and
+    implemented and it produces ZERO developer surface. The implementation is the
+    private licensed DCC User Interface and an internal customer API. A mandate
+    being implemented does not make data accessible.
+  notMandated: >
+    There is NO consumer energy data-portability mandate in Great Britain
+    equivalent to the Australian Consumer Data Right (energy) or Ontario's Green
+    Button regulation. Britain mandated the pipe, not the right. OVO is under no
+    obligation to expose a customer's consumption or billing data to an accredited
+    third party through an API, and it does not.
+  cdrRegisterEntry: >
+    Not applicable to this organization — and this is the trap in the record.
+    OVO Energy Pty Ltd (ABN 99 623 475 089, Melbourne VIC) publishes a Consumer
+    Data Right Policy at
+    https://www.ovoenergy.com.au/terms/consumer-data-right-policy/ (probed 200 on
+    2026-07-27) which states plainly: "As a data holder under the CDR, we are
+    required to make the following sets of data available for sharing" — account
+    details, billing information and electricity usage — and requires the receiving
+    party to be ACCC-accredited. It also names AEMO as the secondary data holder it
+    forwards NEM usage requests to. That is a real designated CDR energy data
+    holder. It is NOT this company. AGL Energy Limited took OVO Energy Pty Ltd to
+    100% ownership in April 2024; OVO Energy Pty Ltd filed AER applications to
+    surrender its electricity and gas retailer authorisations on 6 December 2024
+    (AGL intending to retire the OVO retail brand in Australia) and withdrew both
+    applications on 23 January 2025. Either way, the CDR obligation now attaches to
+    an AGL-owned Australian entity, not to OVO Energy in the United Kingdom.
+    Attributing `cdr-energy` to this record would be wrong.
+    No CDR base URI was sought for the UK entity because none can exist.
+  greenButton: >
+    Not applicable. No Green Button, ESPI, Download My Data or Connect My Data
+    reference appears on any OVO surface. Green Button is a North American
+    standard; no GB regulation compels it and OVO has not adopted it voluntarily.
+dataStandard:
+  standard: no standard reference found
+  detail: >
+    No Green Button / ESPI, no CDR Consumer Data Standards (energy), no IEC CIM
+    61968/61970, no IEEE 2030.5, no OpenADR, no OCPP or OCPI reference was found on
+    any OVO Energy surface, including the EV smart-charging (Charge Anytime) and
+    demand-flexibility (Power Move) product pages. The only standard genuinely in
+    play is SMETS1/SMETS2 metering under the GB Smart Energy Code — and that is
+    device and network infrastructure governed by a licensed monopoly, not a
+    published API contract a developer can implement against. The undocumented
+    internal endpoints are a proprietary REST/JSON shape with no published schema.
+dataSplit:
+  consumerDataApi: false
+  consumerDataDetail: >
+    No documented consumer data API exists. There is no accredited-recipient
+    pathway, no consent API, no OAuth grant a third party can request, and no
+    published schema. What does exist is a live but undocumented customer-session
+    endpoint: https://smartpaymapi.ovoenergy.com/usage/api/half-hourly returned
+    HTTP 401 application/json to an anonymous caller on 2026-07-27, and
+    https://my.ovoenergy.com/api/auth/login redirects to the customer login page.
+    These are internal product APIs for OVO's own web and mobile clients. OVO staff
+    have stated on the company's own forum that these interfaces are intended for
+    OVO/Kaluza and its retailer clients, are not public-facing, and may change or
+    be withdrawn without notice; the community Python and Node-RED integrations
+    built on them break accordingly. A reverse-engineered endpoint is not an API
+    programme and is not counted as one here.
+  marketDataOpen: false
+  marketDataDetail: >
+    Zero. OVO publishes no open grid, market, settlement or system data. No CKAN or
+    other open-data portal exists on any OVO domain (data.ovoenergy.com does not
+    resolve), no dataset licence is published, and no anonymous feed of any kind was
+    found. This is structurally normal for a GB retailer rather than a failing: in
+    Britain the open market data comes from other parties — NESO's Data Portal and
+    the Carbon Intensity API, Elexon's BSC/Insights data, and the DNO open-data
+    portals — none of which originates with a supplier.
+  theFinding: >
+    OVO is closed on BOTH axes, which is the common shape for a GB retailer and the
+    exact inverse of NESO. The more interesting finding is adjacent: OVO Group owns
+    Kaluza, an API-first energy intelligence platform explicitly marketed on
+    "GraphQL and Streaming APIs" and licensed to utilities worldwide — Britain's
+    direct analogue to Octopus Energy's Kraken. developer.kaluza.com (200, a Next.js
+    application shell) and docs.kaluza.com (200, a product-module overview naming
+    Energy Optimisation, Customer Care, Commerce, Billing & Payments and Data
+    Intelligence) are both live. But that surface belongs to a different brand on a
+    different domain, is aimed at licensee utilities rather than developers, and
+    publishes no OpenAPI, no base URL, no auth model and no self-serve signup. So
+    the API-native platform underneath does not translate into a public API for the
+    retailer sitting on top of it — the same pattern already recorded for E.ON Next
+    on Kraken. Note also that the 11 May 2026 E.ON acquisition of OVO's retail
+    business explicitly excludes Kaluza, which will remain a separate business with
+    E.ON continuing the platform licence.
+accessGate:
+  gate: customer-account-required
+  whatADeveloperMustDo: >
+    There is nothing to sign up for. No developer portal, no API key request form,
+    no partner application, no data licence, no accreditation pathway. The only way
+    to reach energy data is to become an OVO customer and sign in at
+    https://my.ovoenergy.com/login or use the OVO app, then read your own usage —
+    the browser account has no bulk download, and OVO has said downloadable usage
+    is an app feature. A developer wanting programmatic access has exactly two
+    unsupported options: scrape their own authenticated session against
+    smartpaymapi.ovoenergy.com (undocumented, unsupported, known to break), or go
+    around OVO entirely and pull their own smart-meter data from a DCC "Other User"
+    service such as n3rgy, Bright/Hildebrand or Loop. `none-published` was
+    considered for this field and rejected: a real, live, customer-authenticated
+    data endpoint does exist, so the gate is the customer account, not the absence
+    of any route at all.
+  gated: true
+authModel:
+  scheme: proprietary session authentication (customer login); no published developer
+    auth scheme
+  detail: >
+    No API key programme, no OAuth2 client registration, no OpenID Connect discovery,
+    no mTLS, no CDR-style accreditation, and no documented scopes anywhere. The
+    customer surface authenticates through a login at my.ovoenergy.com issuing a
+    session/bearer credential consumed by OVO's own web and mobile clients; the
+    downstream data endpoint enforces it (401 JSON when absent). Community reports
+    describe the session credential now being produced by obfuscated client-side
+    JavaScript, which is a deliberate anti-automation posture, not a developer
+    programme. Nothing about the scheme is published, so nothing about it is
+    recorded here as a supported contract.
+  wellKnownProbe: >
+    https://www.ovoenergy.com/.well-known/openid-configuration -> HTTP 404 (HTML).
+    https://api.ovoenergy.com/.well-known/openid-configuration -> HTTP 404
+    (text/plain, "No context-path matches the request URI"). No OIDC discovery
+    document is served anywhere on the estate.
+    https://www.ovoenergy.com/.well-known/api-catalog -> HTTP 404.
+    https://www.ovoenergy.com/.well-known/ai-plugin.json -> HTTP 404.
+    https://www.ovoenergy.com/.well-known/security.txt -> HTTP 200, a valid
+    security.txt (Contact via ovo.tines.com intake page, Policy
+    https://www.ovoenergy.com/security, Expires 2026-12-31, Hiring
+    https://careers.ovo.com). This is the only .well-known artefact OVO publishes.
+probes:
+  date: '2026-07-27'
+  method: anonymous curl, no cookies, no credentials, redirects followed
+  results:
+  - url: https://www.ovoenergy.com/
+    status: 200
+    note: Corporate and retail marketing site.
+  - url: https://www.ovoenergy.com/about
+    status: 200
+    note: Reached via /about-ovo -> 200 redirect to /about.
+  - url: https://www.ovoenergy.com/help
+    status: 200
+  - url: https://www.ovoenergy.com/privacy-policy
+    status: 200
+  - url: https://www.ovoenergy.com/terms
+    status: 200
+  - url: https://www.ovoenergy.com/blog
+    status: 200
+  - url: https://forum.ovoenergy.com/
+    status: 200
+    note: Public customer forum; the only place OVO staff discuss the internal APIs,
+      and they discuss them to say they are not for public use.
+  - url: https://my.ovoenergy.com/
+    status: 200
+    note: Redirects to https://my.ovoenergy.com/login — customer account login.
+  - url: https://my.ovoenergy.com/api/auth/login
+    status: 200
+    note: Redirects to the login page; not a documented API endpoint.
+  - url: https://smartpaymapi.ovoenergy.com/usage/api/half-hourly
+    status: 401
+    note: application/json 401 to an anonymous caller. LIVE, real, and the single
+      most important probe in this review — an undocumented internal half-hourly
+      smart-meter consumption endpoint gated to a customer session. NOT listed in
+      apis[].
+  - url: https://smartpaymapi.ovoenergy.com/
+    status: 404
+    note: application/json 404 at the service root; no index, no docs, no spec.
+  - url: https://paym.ovoenergy.com/
+    status: 200
+    note: Legacy pay-monthly customer surface.
+  - url: https://smartpaym.ovoenergy.com/
+    status: 200
+    note: Redirects to https://account.ovoenergy.com/ — customer account, not a
+      developer surface.
+  - url: https://api.ovoenergy.com/
+    status: 404
+    note: Resolves and is live behind Cloudflare. Body is text/plain "No context-path
+      matches the request URI." — an API gateway with no public context path.
+  - url: https://api.ovoenergy.com/openapi.json
+    status: 404
+    note: text/plain gateway 404. NOT a spec.
+  - url: https://api.ovoenergy.com/swagger.json
+    status: 404
+    note: text/plain gateway 404. NOT a spec.
+  - url: https://api.ovoenergy.com/api-docs
+    status: 404
+  - url: https://api.ovoenergy.com/docs
+    status: 404
+  - url: https://api.ovoenergy.com/v1
+    status: 404
+  - url: https://api.ovoenergy.com/health
+    status: 404
+  - url: https://api.ovoenergy.com/graphql
+    status: 404
+    note: No GraphQL endpoint is exposed on the public gateway.
+  - url: https://api.ovoenergy.com/.well-known/openid-configuration
+    status: 404
+  - url: https://developer.ovoenergy.com/
+    status: 0
+    note: DNS does not resolve.
+  - url: https://developers.ovoenergy.com/
+    status: 0
+    note: DNS does not resolve.
+  - url: https://docs.ovoenergy.com/
+    status: 0
+    note: DNS does not resolve.
+  - url: https://data.ovoenergy.com/
+    status: 0
+    note: DNS does not resolve. No open-data portal.
+  - url: https://live.ovoenergy.com/
+    status: 0
+    note: DNS does not resolve. Historic community-documented consumption host is
+      gone.
+  - url: https://www.ovoenergy.com/developers
+    status: 404
+  - url: https://www.ovoenergy.com/developer
+    status: 404
+  - url: https://www.ovoenergy.com/api
+    status: 404
+  - url: https://www.ovoenergy.com/docs
+    status: 404
+  - url: https://www.ovoenergy.com/openapi.json
+    status: 404
+  - url: https://www.ovoenergy.com/swagger.json
+    status: 404
+  - url: https://www.ovoenergy.com/graphql
+    status: 404
+  - url: https://www.ovoenergy.com/llms.txt
+    status: 404
+  - url: https://www.ovoenergy.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.ovoenergy.com/.well-known/api-catalog
+    status: 404
+  - url: https://www.ovoenergy.com/.well-known/ai-plugin.json
+    status: 404
+  - url: https://www.ovoenergy.com/.well-known/security.txt
+    status: 200
+    note: Valid security.txt; the only .well-known document served.
+  - url: https://www.ovoenergy.com/robots.txt
+    status: 200
+    note: Disallows /search only; names the sitemap.
+  - url: https://www.ovoenergy.com/sitemap.xml
+    status: 200
+    note: Sitemap index -> site-map.xml, image-sitemap.xml, help/sitemap.xml.
+  - url: https://www.ovoenergy.com/site-map.xml
+    status: 200
+    note: 249 URLs. Zero contain "developer", "api", "open-data" or "partner".
+      Eleven smart-meter pages, confirming the metering estate.
+  - url: https://github.com/ovotech
+    status: 200
+    note: 'GitHub org "OVO Technology", created 2013-02-12, 88 public repos, blog
+      field = ovoenergy.com. Real and active (commits on 2026-07-27), but the
+      content is internal engineering tooling and Scala/Go/TypeScript libraries —
+      gitoops, cloud-key-rotator, castle, natchez-extras, comms-aws, VertFlow. No
+      product API spec, no OpenAPI, no client SDK for an OVO API.'
+  - url: https://api.github.com/orgs/ovotech
+    status: 200
+    note: Org metadata confirmed via the GitHub API.
+  - url: https://github.com/ovo-energy
+    status: 404
+    note: No such org.
+  - url: https://www.linkedin.com/company/ovo-energy
+    status: 200
+    note: Redirects to https://uk.linkedin.com/company/ovoenergy.
+  - url: https://company.ovo.com/
+    status: 200
+    note: OVO Group corporate site (www.ovo.com redirects here).
+  - url: https://careers.ovo.com/
+    status: 200
+  - url: https://www.kaluza.com/
+    status: 200
+    note: OVO Group's energy intelligence platform — separate brand, separate
+      domain.
+  - url: https://developer.kaluza.com/
+    status: 200
+    note: Live Next.js application shell; no server-rendered content, no spec links
+      in the HTML.
+  - url: https://docs.kaluza.com/
+    status: 200
+    note: 'Product-module overview: Energy Optimisation, Customer Care, Commerce,
+      Billing & Payments, Data Intelligence. Mentions "GraphQL and Streaming APIs"
+      but publishes no API names, no base URLs, no OpenAPI, no auth model and no
+      self-serve signup. Belongs to Kaluza, not OVO Energy — not listed in apis[].'
+  - url: https://www.ovoenergy.com.au/
+    status: 200
+    note: The Australian namesake, now AGL-owned. Different organization.
+  - url: https://www.ovoenergy.com.au/terms/consumer-data-right-policy/
+    status: 200
+    note: 'Real CDR data-holder policy for OVO Energy Pty Ltd (ABN 99 623 475 089):
+      account, billing and electricity usage data shared with ACCC-accredited
+      recipients, with AEMO named as secondary data holder. Belongs to the
+      AGL-owned Australian entity, NOT to OVO Energy UK.'
+  - url: https://www.ovoenergy.com.au/cds-au/v1/discovery/status
+    status: 404
+    note: Standard CDR unauthenticated discovery path is not served on the marketing
+      host; the AU entity's CDR base URI was not located and is out of scope for
+      this UK record.
+  - url: https://cdr.ovoenergy.com.au/cds-au/v1/discovery/status
+    status: 0
+    note: DNS does not resolve.
+  - url: https://api.ovoenergy.com.au/cds-au/v1/discovery/status
+    status: 0
+    note: DNS does not resolve.
+  - url: https://epr.ofgem.gov.uk/
+    status: 200
+    note: Ofgem Public Register. Client-side React SPA; no accessible JSON search
+      API, so no machine-readable licence row could be pulled.
+  - url: https://smartenergycodecompany.co.uk/
+    status: 200
+    note: 'SEC company site is live but the party-list paths probed 404:
+      /sec-parties/ and /parties/.'
+  - url: https://data.elexon.co.uk/bmrs/api/v1/reference/bsc-parties
+    status: 404
+    note: 'JSON body: {"statusCode":404,"message":"Resource not found"}. No BSC
+      party register row obtained.'
+specHarvest:
+  harvested: false
+  specsCount: 0
+  detail: >
+    No machine-readable API contract is published by OVO Energy anywhere. Every
+    /openapi.json, /swagger.json, /api-docs and .well-known/api-catalog probe on
+    www.ovoenergy.com and api.ovoenergy.com returned 404. The ovotech GitHub
+    organisation carries 88 public repositories of internal engineering tooling and
+    none of them is a product API definition or client SDK. No spec was authored,
+    because authoring one from an undocumented 401 endpoint would be fabrication
+    rather than harvest. The openapi/ directory is omitted.
+  openapiDirectoryOmitted: true
+corporate:
+  note: >
+    On 11 May 2026 OVO announced it had agreed the sale of its UK energy retail
+    business to E.ON and its Home Services business to Hometree, both subject to
+    regulatory approval and expected to complete later in 2026, with roughly four
+    million customers involved. The Kaluza software platform is explicitly excluded
+    from the sale; E.ON will continue the existing Kaluza energy intelligence
+    platform licence in respect of OVO's customer base and evaluate adopting Kaluza
+    across the wider E.ON group outside the UK. If completed, OVO Energy's retail
+    book joins E.ON Next, and this profile should be revisited alongside the
+    eon-next record.
+sources:
+- url: https://www.ovoenergy.com/.well-known/security.txt
+  type: SecurityTxt
+  note: Only .well-known artefact served; Contact, Policy, Expires 2026-12-31,
+    Hiring careers.ovo.com.
+- url: https://company.ovo.com/ovo-agrees-sale-of-energy-retail-business-to-e-on-and-home-services-business-to-hometree/
+  type: News
+  note: 11 May 2026 — E.ON acquires OVO's UK retail business, Hometree acquires Home
+    Services, Kaluza excluded and its licence continued.
+- url: https://www.eon.com/en/about-us/media/press-release/2026/eon-announces-acquisition-of-uk-energy-supplier-ovo.html
+  type: News
+  note: E.ON's corresponding announcement of the OVO acquisition.
+- url: https://www.ovoenergy.com.au/terms/consumer-data-right-policy/
+  type: Regulation
+  note: The Australian namesake's CDR data-holder policy — evidence that the
+    cdr-energy obligation belongs to the AGL-owned AU entity, not to OVO Energy UK.
+- url: https://www.aer.gov.au/news/articles/communications/ovo-energy-pty-ltd-application-surrender-electricity-and-gas-retailer-authorisations
+  type: Regulation
+  note: AER record of OVO Energy Pty Ltd's surrender applications (6 Dec 2024) and
+    their withdrawal (23 Jan 2025) after AGL took 100% ownership in April 2024.
+- url: https://www.cdr.gov.au/rollout/cdr-energy-sector
+  type: Regulation
+  note: Australian CDR energy sector rollout — the mandate that does NOT apply in
+    Great Britain.
+- url: https://github.com/ovotech
+  type: SourceCode
+  note: OVO Technology GitHub organisation — 88 public repos of internal tooling, no
+    product API spec.
+- url: https://www.kaluza.com/
+  type: RelatedPlatform
+  note: OVO Group's API-first energy intelligence platform, licensed to utilities.
+    Separate brand and domain; excluded from the E.ON sale.
+- url: https://docs.kaluza.com/
+  type: Documentation
+  note: Kaluza platform module overview naming "GraphQL and Streaming APIs" with no
+    published contract, base URL or auth model.
+- url: https://forum.ovoenergy.com/
+  type: Forum
+  note: Where OVO staff state that the internal APIs are for OVO/Kaluza and its
+    retailer clients, are not public-facing, and may change without notice.
