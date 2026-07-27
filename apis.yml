@@ -34,7 +34,7 @@ description: >-
   open market data is published by other GB parties (NESO, Elexon, the DNOs), and on
   11 May 2026 OVO agreed the sale of this retail business to E.ON, with Kaluza
   explicitly excluded from the deal.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://www.ovoenergy.com/apple-touch-icon.png
 tags:
 - Energy
 - United Kingdom
@@ -51,6 +51,18 @@ modified: '2026-07-27'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: VulnerabilityDisclosure
+  url: security/ovo-energy-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/ovo-energy-domain-security.yml
+- type: WellKnown
+  url: well-known/ovo-energy-well-known.yml
+- type: Conformance
+  url: conformance/ovo-energy-conformance.yml
+- type: Packages
+  url: packages/ovo-energy-packages.yml
+- type: LLMsTxt
+  url: llms/ovo-energy-llms.txt
 - type: Website
   url: https://www.ovoenergy.com/
 - type: About
@@ -69,13 +81,19 @@ common:
   url: https://forum.ovoenergy.com/
 - type: CustomerPortal
   url: https://my.ovoenergy.com/login
-- type: Privacy
+- type: Login
+  url: https://my.ovoenergy.com/login
+- type: SignUp
+  url: https://www.ovoenergy.com/get-energy-quote
+- type: Pricing
+  url: https://www.ovoenergy.com/home-energy-plans
+- type: PrivacyPolicy
   url: https://www.ovoenergy.com/privacy-policy
 - type: TermsOfService
   url: https://www.ovoenergy.com/terms
 - type: SecurityTxt
-  url: https://www.ovoenergy.com/.well-known/security.txt
-- type: SecurityPolicy
+  url: well-known/ovo-energy-security.txt
+- type: Security
   url: https://www.ovoenergy.com/security
 - type: Careers
   url: https://careers.ovo.com/

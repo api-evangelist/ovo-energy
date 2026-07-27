@@ -1,0 +1,25 @@
+# Information related to reporting security vulnerabilities of this site.
+
+# How to communicate about security issues.
+Contact: https://ovo.tines.com/pages/d7e2f76cb5216ff95b0c6c4509524b5b/
+
+# Date and time after which this data is considered stale
+Expires: 2026-12-31T23:59:59z
+
+# Encryption
+
+# Acknowledgements
+
+# Preferred languages for communication.
+Preferred-Languages: en
+
+# The most common URL for accessing this security.txt file.
+Canonical: https://www.ovoenergy.com/.well-known/security.txt
+
+# What security researchers should do when searching for or reporting security issues.
+Policy: https://www.ovoenergy.com/security
+
+# Link to any security-related job openings in your organization.
+Hiring: https://careers.ovo.com
+
+# Please see https://securitytxt.org/ for details of the specification of this file.

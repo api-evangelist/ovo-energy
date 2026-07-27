@@ -1,0 +1,135 @@
+generated: '2026-07-27'
+method: derived
+source: >-
+  Derived from the live anonymous probe log in review.yml plus this round's
+  re-probes (2026-07-27) of www.ovoenergy.com, api.ovoenergy.com,
+  my.ovoenergy.com and smartpaymapi.ovoenergy.com. There is no OpenAPI, AsyncAPI
+  or GraphQL document to derive from — every conformance claim below rests on an
+  observed HTTP response or a published policy page, never on an inferred spec.
+scope: >-
+  OVO Energy (United Kingdom retail supply). Excludes Kaluza, the API-first
+  platform owned by the same group on a separate domain, and excludes OVO Energy
+  Pty Ltd (Australia), which is AGL-owned.
+standards:
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: >-
+      https://www.ovoenergy.com/.well-known/security.txt returns HTTP 200
+      text/plain with Contact, Expires (2026-12-31), Canonical, Policy,
+      Preferred-Languages and Hiring fields. Saved verbatim to
+      well-known/ovo-energy-security.txt.
+  - id: responsible-disclosure-policy
+    conforms: true
+    evidence: >-
+      https://www.ovoenergy.com/security publishes a full responsible-disclosure
+      policy with reporter commitments and conditional no-legal-action language.
+      See security/ovo-energy-vulnerability-disclosure.yml.
+  - id: openapi
+    conforms: false
+    evidence: >-
+      /openapi.json, /openapi.yaml, /swagger.json, /api-docs, /docs, /redoc,
+      /rapidoc and /v1/openapi.json all 404 on www.ovoenergy.com,
+      api.ovoenergy.com and smartpaymapi.ovoenergy.com.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No event, streaming or webhook surface is published. The @ovotech Kafka/Avro
+      libraries evidence an internal event estate, but nothing is externally
+      documented and no AsyncAPI exists.
+  - id: graphql
+    conforms: false
+    evidence: >-
+      api.ovoenergy.com/graphql returns the text/plain gateway 404;
+      my.ovoenergy.com/api/graphql 303-redirects to the customer login SPA. No
+      introspectable endpoint was reachable anonymously.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No OAuth2 authorization server, client registration or documented grant.
+      /.well-known/oauth-authorization-server and
+      /.well-known/oauth-protected-resource 404 on every host probed.
+  - id: openid-connect
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration returns HTTP 404 on www.ovoenergy.com
+      (text/html) and api.ovoenergy.com (text/plain). No OIDC discovery document
+      is served anywhere on the estate.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      The one live data endpoint, smartpaymapi.ovoenergy.com/usage/api/half-hourly,
+      answers 401 with application/json — not application/problem+json — and no
+      error contract is published.
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: /.well-known/api-catalog returns 404 on both www and api hosts.
+  - id: llms-txt
+    conforms: false
+    evidence: >-
+      https://www.ovoenergy.com/llms.txt returns 404; /ai.txt and
+      /.well-known/ai.txt also 404. An API Evangelist generated llms.txt is
+      carried at llms/ovo-energy-llms.txt.
+  - id: gb-smart-energy-code
+    conforms: true
+    evidence: >-
+      As a licensed GB domestic supplier OVO is a Smart Energy Code party and a
+      DCC User, operating a SMETS1/SMETS2 estate over the licensed Smart DCC
+      network. Implementation verified indirectly: a live half-hourly consumption
+      service (HTTP 401 to anonymous callers) and eleven smart-metering pages in
+      the sitemap including the SMETS1 4G enrolment programme. This is an
+      INFRASTRUCTURE obligation, not an API contract — it produces zero developer
+      surface.
+    caveat: >-
+      No machine-readable register row was obtained; Ofgem's Public Register is a
+      client-side SPA and the SEC party-list paths 404.
+  - id: cdr-energy-au
+    conforms: false
+    applicable: false
+    evidence: >-
+      Consumer Data Right (energy) does not apply to the UK entity. OVO Energy Pty
+      Ltd in Australia IS a designated CDR data holder, but AGL Energy took it to
+      100% ownership in April 2024. Attributing cdr-energy to this record would be
+      wrong.
+  - id: green-button-espi
+    conforms: false
+    applicable: false
+    evidence: >-
+      Green Button / ESPI is a North American standard; no GB regulation compels
+      it and no Green Button, Download My Data or Connect My Data reference exists
+      on any OVO surface.
+  - id: iec-cim-61968
+    conforms: false
+    evidence: No IEC CIM reference found on any OVO Energy surface.
+  - id: ieee-2030-5
+    conforms: false
+    evidence: No IEEE 2030.5 (SEP2) reference found.
+  - id: openadr
+    conforms: false
+    evidence: >-
+      No OpenADR reference found, including on the Power Move demand-flexibility
+      product pages.
+  - id: ocpp-ocpi
+    conforms: false
+    evidence: >-
+      No OCPP or OCPI reference found, including on the Charge Anytime EV
+      smart-charging pages.
+  - id: hsts
+    conforms: true
+    evidence: >-
+      www.ovoenergy.com, my.ovoenergy.com, forum.ovoenergy.com,
+      account.ovoenergy.com and careers.ovo.com all send
+      Strict-Transport-Security; api.ovoenergy.com and
+      smartpaymapi.ovoenergy.com do not. See
+      security/ovo-energy-domain-security.yml.
+  - id: dmarc-enforcement
+    conforms: true
+    evidence: >-
+      Both ovoenergy.com and ovo.com publish SPF and a DMARC record with p=reject.
+      Neither domain is DNSSEC-signed.
+published_certifications: []
+certification_note: >-
+  No trust centre and no named certification (SOC 2, ISO 27001, PCI DSS, HIPAA,
+  Cyber Essentials) is published on any probed OVO surface — trust.ovoenergy.com
+  does not resolve and /trust, /security and /compliance on company.ovo.com all
+  404. No `Compliance` pointer is emitted, because there is no published
+  compliance programme to point at.

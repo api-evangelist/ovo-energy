@@ -1,0 +1,81 @@
+generated: '2026-07-27'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 11 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: api.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 23 20:20:58 2026 GMT
+  hsts: null
+- host: my.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 15 04:18:55 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: smartpaymapi.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 12 15:32:55 2026 GMT
+  hsts: null
+- host: forum.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 16 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: account.ovoenergy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  3 12:02:52 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: company.ovo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 25 19:43:10 2026 GMT
+  hsts: false
+- host: careers.ovo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 24 19:53:42 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+domains:
+- domain: ovoenergy.com
+  dnssec: false
+  caa:
+  - 0 issuewild "pki.goog; cansignhttpexchanges=yes"
+  - 0 issuewild "sectigo.com"
+  - 0 issuewild "www.digicert.com; cansignhttpexchanges=yes"
+  - 0 iodef "mailto:admin@ovo.com"
+  - 0 issue "amazon.com"
+  - 0 issue "letsencrypt.org"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: ovo.com
+  dnssec: false
+  caa:
+  - 0 issuewild "www.digicert.com; cansignhttpexchanges=yes"
+  - 0 iodef "mailto:admin@ovo.com"
+  - 0 issue "amazon.com"
+  - 0 issue "godaddy.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "pki.goog; cansignhttpexchanges=yes"
+  - 0 issue "sectigo.com"
+  - 0 issue "www.digicert.com; cansignhttpexchanges=yes"
+  - 0 issuewild "amazon.com"
+  - 0 issuewild "godaddy.com"
+  - 0 issuewild "letsencrypt.org"
+  - 0 issuewild "pki.goog; cansignhttpexchanges=yes"
+  - 0 issuewild "sectigo.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

@@ -33,6 +33,27 @@ anonymous caller: it is undocumented, unsupported, and reachable only with a sig
 OVO customer session. It is deliberately **not** listed as an API here. See `review.yml`
 for the full probe log.
 
+## Artifacts
+
+Round 2 enrichment (2026-07-27) re-ran contract discovery against every OVO host and found
+no machine-readable contract — no OpenAPI, no GraphQL, no AsyncAPI, no MCP server. What it
+did harvest is the security, packaging and conformance posture:
+
+- `well-known/ovo-energy-well-known.yml` — `/.well-known/` probe index across five hosts
+- `well-known/ovo-energy-security.txt` — verbatim RFC 9116 security.txt (the only
+  `.well-known` document served anywhere on the estate)
+- `security/ovo-energy-vulnerability-disclosure.yml` — the responsible-disclosure programme
+  (Tines intake, no bug bounty, conditional no-legal-action commitment)
+- `security/ovo-energy-domain-security.yml` — TLS/HSTS/cert/DNSSEC/CAA/SPF/DMARC for eight
+  hosts and two domains
+- `conformance/ovo-energy-conformance.yml` — what OVO conforms to (RFC 9116, GB Smart Energy
+  Code, HSTS, DMARC `p=reject`) and what it demonstrably does not (OpenAPI, OIDC, OAuth2,
+  RFC 9457, Green Button, CDR, OCPP/OCPI, OpenADR)
+- `packages/ovo-energy-packages.yml` — first-party OVO Technology open-source libraries
+  (npm `@ovotech`, Maven `com.ovoenergy`, Go) and the one **community** Python client; there
+  is no first-party API client SDK, because there is no API
+- `llms/ovo-energy-llms.txt` — generated llms.txt (OVO publishes none; `/llms.txt` 404s)
+
 ## Common Properties
 
 - [Website](https://www.ovoenergy.com/)
@@ -43,10 +64,13 @@ for the full probe log.
 - [Blog](https://www.ovoenergy.com/blog)
 - [Support](https://www.ovoenergy.com/help)
 - [Forum](https://forum.ovoenergy.com/)
-- [Customer Portal](https://my.ovoenergy.com/login)
-- [Privacy](https://www.ovoenergy.com/privacy-policy)
+- [Customer Portal / Login](https://my.ovoenergy.com/login)
+- [Sign Up (energy quote)](https://www.ovoenergy.com/get-energy-quote)
+- [Pricing (home energy plans)](https://www.ovoenergy.com/home-energy-plans)
+- [Privacy Policy](https://www.ovoenergy.com/privacy-policy)
 - [Terms of Service](https://www.ovoenergy.com/terms)
 - [security.txt](https://www.ovoenergy.com/.well-known/security.txt)
+- [Security / responsible disclosure](https://www.ovoenergy.com/security)
 - [Careers](https://careers.ovo.com/)
 
 ## Mandate Posture

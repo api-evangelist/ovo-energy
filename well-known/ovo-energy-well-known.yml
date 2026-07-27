@@ -1,0 +1,73 @@
+generated: '2026-07-27'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface across every OVO Energy
+  host reachable from apis.yml and the review probe log. apis[] is empty — OVO
+  Energy publishes no documented API — so the hosts probed are the marketing site,
+  the live-but-empty public API gateway (api.ovoenergy.com), the customer portal
+  (my.ovoenergy.com) and the undocumented customer-session data host
+  (smartpaymapi.ovoenergy.com). Status is the HTTP code observed at fetch time on
+  2026-07-27 by anonymous curl. Only a document returning a real, correctly-typed
+  payload was saved verbatim: exactly one — the RFC 9116 security.txt on
+  www.ovoenergy.com. my.ovoenergy.com answers 200 for any /.well-known/ path by
+  redirecting into the portal login SPA (text/html), so it is recorded as
+  present-but-not-a-real-document and not saved.
+hosts:
+  - host: https://www.ovoenergy.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/plain
+        file: ovo-energy-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://api.ovoenergy.com
+    note: >-
+      Live API gateway behind Cloudflare. Every path answers text/plain
+      "No context-path matches the request URI." — there is no public context path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: https://my.ovoenergy.com
+    note: >-
+      Customer portal. Any /.well-known/ path 303-redirects to
+      https://my.ovoenergy.com/login and returns the portal SPA as text/html —
+      a 200 status code, but not a discovery document.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/html
+        real_document: false
+  - host: https://smartpaymapi.ovoenergy.com
+    note: >-
+      Undocumented customer-session data host. Serves application/json 404 for
+      every unauthenticated path except /usage/api/half-hourly, which returns 401.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://company.ovo.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+findings:
+  - >-
+    One well-known document exists across the whole estate: the security.txt on
+    the marketing host. It is valid RFC 9116, expires 2026-12-31, routes contact
+    through a Tines intake page and names https://www.ovoenergy.com/security as
+    the disclosure policy.
+  - >-
+    No OIDC discovery, no OAuth authorization-server metadata, no api-catalog and
+    no ai-plugin.json is served anywhere on the estate — consistent with there
+    being no developer programme and no published auth scheme.

@@ -1,0 +1,124 @@
+generated: '2026-07-27'
+method: searched
+source: >-
+  npm registry search (scope @ovotech), Maven Central (groupId com.ovoenergy),
+  PyPI, pkg.go.dev, RubyGems, crates.io, NuGet, Packagist and the ovotech GitHub
+  organisation, probed 2026-07-27.
+summary:
+  first_party_api_client_sdks: 0
+  first_party_open_source_libraries: true
+  community_api_clients: 1
+  finding: >-
+    OVO Energy publishes NO client SDK for an OVO Energy API, because it publishes
+    no API. What OVO Technology does publish, and publishes prolifically, is
+    general-purpose internal engineering tooling — Scala (Maven Central, groupId
+    com.ovoenergy), TypeScript/Node (npm, scope @ovotech) and Go (pkg.go.dev,
+    github.com/ovotech). Those are first-party OVO packages but they are NOT API
+    client libraries: none of them talks to an OVO Energy product API. The only
+    package that does reach OVO customer data is a COMMUNITY Python client built
+    on the undocumented customer-session endpoints, and its own README says it is
+    not officially supported. Nothing here earns an SDKs pointer.
+packages:
+  # ---- community API client (NOT first party) ----
+  - language: python
+    registry: pypi
+    name: ovoenergy
+    version: 3.0.2
+    url: https://pypi.org/project/ovoenergy/
+    install: pip install ovoenergy
+    source: https://github.com/timmo001/ovoenergy
+    license: Apache-2.0
+    author: Aidan Timson (Timmo)
+    official: false
+    api_client: true
+    note: >-
+      Community OVO Energy Python client — the library behind the Home Assistant
+      OVO Energy integration. Talks to the undocumented customer-session endpoints
+      (the same surface as smartpaymapi.ovoenergy.com), not to a published API.
+      Its own README states: "This package is not officially supported by OVO
+      Energy and is provided as-is. If OVO change their APIs, this package may
+      break." Recorded as evidence of demand, not as an SDK.
+  # ---- first-party OVO Technology open-source libraries (NOT API clients) ----
+  - language: scala
+    registry: maven
+    name: com.ovoenergy:natchez-extras-core
+    version: 8.1.1
+    url: https://central.sonatype.com/search?q=g:com.ovoenergy
+    install: 'libraryDependencies += "com.ovoenergy" %% "natchez-extras-core" % "8.1.1"'
+    source: https://github.com/ovotech/natchez-extras
+    official: true
+    api_client: false
+    note: >-
+      Distributed-tracing integrations (Datadog, http4s, doobie, fs2, log4cats)
+      for the Natchez Scala library. 66 artefacts published under groupId
+      com.ovoenergy on Maven Central for Scala 2.13 and 3. Internal engineering
+      tooling — no OVO Energy product API is involved.
+  - language: typescript
+    registry: npm
+    name: '@ovotech/laminar'
+    version: 0.14.3
+    url: https://www.npmjs.com/package/@ovotech/laminar
+    install: npm install @ovotech/laminar
+    source: https://github.com/ovotech/laminar
+    license: Apache-2.0
+    official: true
+    api_client: false
+    note: >-
+      "A minimal nodejs http server, built around the concept of strictly typed
+      middlewares" — an OpenAPI-first HTTP server framework OVO uses to BUILD
+      services, plus @ovotech/laminar-cli which generates TypeScript types from an
+      OpenAPI document. Notable in context: OVO ships OpenAPI-driven tooling to
+      the world while publishing no OpenAPI of its own.
+  - language: typescript
+    registry: npm
+    name: '@ovotech/avro-ts'
+    url: https://www.npmjs.com/package/@ovotech/avro-ts
+    install: npm install @ovotech/avro-ts
+    source: https://github.com/ovotech/avro-ts
+    official: true
+    api_client: false
+    note: >-
+      Converts Avro schemas into TypeScript interfaces; part of a family with
+      @ovotech/avro-kafkajs, @ovotech/avro-mock-generator, @ovotech/blaise and
+      @ovotech/castle (Kafka consumer framework). Evidence of a real internal
+      event-driven/Kafka estate — none of which is externally documented, and none
+      of which yields a public AsyncAPI.
+  - language: typescript
+    registry: npm
+    name: '@ovotech/json-schema'
+    url: https://www.npmjs.com/package/@ovotech/json-schema
+    install: npm install @ovotech/json-schema
+    source: https://github.com/ovotech/json-schema
+    official: true
+    api_client: false
+    note: Lightweight JSON Schema validator used across OVO's Node services.
+  - language: typescript
+    registry: npm
+    name: '@ovotech/potygen'
+    url: https://www.npmjs.com/package/@ovotech/potygen
+    install: npm install @ovotech/potygen
+    source: https://github.com/ovotech/potygen
+    official: true
+    api_client: false
+    note: Postgres Typescript Generator — type-safe SQL for TypeScript.
+  - language: go
+    registry: go
+    name: github.com/ovotech/cloud-key-rotator
+    url: https://pkg.go.dev/github.com/ovotech/cloud-key-rotator
+    install: go get github.com/ovotech/cloud-key-rotator
+    source: https://github.com/ovotech/cloud-key-rotator
+    official: true
+    api_client: false
+    note: >-
+      Rotates cloud provider access keys; one of OVO Technology's better-known
+      Go tools alongside github.com/ovotech/gitoops (Neo4j-based CI/CD attack-path
+      mapping). Security/platform tooling, not a product API client.
+registries_probed:
+  - {registry: npm, query: 'scope:ovotech / text ovotech', result: '~70 first-party packages, none an OVO API client'}
+  - {registry: maven, query: 'g:com.ovoenergy', result: '66 artefacts, all natchez-extras tracing libraries'}
+  - {registry: pypi, query: ovoenergy, result: '1 package, community-maintained, unofficial'}
+  - {registry: go, query: github.com/ovotech/*, result: 'cloud-key-rotator and gitoops indexed on pkg.go.dev'}
+  - {registry: rubygems, query: ovotech, result: 0}
+  - {registry: crates.io, query: ovotech, result: 0}
+  - {registry: nuget, query: ovotech, result: 0}
+  - {registry: packagist, query: ovotech, result: '0 (only an unrelated cvo-technologies package)'}
