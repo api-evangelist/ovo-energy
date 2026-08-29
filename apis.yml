@@ -34,6 +34,17 @@ description: >-
   open market data is published by other GB parties (NESO, Elexon, the DNOs), and on
   11 May 2026 OVO agreed the sale of this retail business to E.ON, with Kaluza
   explicitly excluded from the deal.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.ovoenergy.com/apple-touch-icon.png
 tags:
 - Energy
