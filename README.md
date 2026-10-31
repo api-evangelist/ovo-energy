@@ -1,4 +1,4 @@
-# OVO Energy (ovo-energy)
+# OVO Energy
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,110 +64,88 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-OVO Energy is a United Kingdom household electricity and gas supplier founded in Bristol in 2009 by Stephen Fitzpatrick, and — after absorbing SSE's household energy business in January 2020 — the third-largest domestic supplier in Great Britain with roughly four million home energy customers. It sits at the retail end of the GB energy value chain: buying wholesale, holding an Ofgem supply licence, settling through Elexon, reading SMETS2 smart meters over the licensed Smart DCC network, and billing the customer, alongside solar, home battery, heat pump, EV smart-charging (Charge Anytime) and demand-flexibility (Power Move) propositions. Its parent OVO Group also owns Kaluza, an API-first energy intelligence platform licensed to utilities worldwide — the direct British analogue to Octopus Energy's Kraken — but that platform is a separate brand on a separate domain, and none of its API surface is published under OVO Energy. OVO Energy's own API posture is closed: no developer portal, no API documentation, no machine-readable contract, and no third-party route to a customer's usage or billing data.
+OVO Energy is a United Kingdom household electricity and gas supplier founded in Bristol in 2009 by Stephen Fitzpatrick, and — after absorbing SSE's household energy business in January 2020 — the third-largest domestic supplier in Great Britain with roughly four million home energy customers. It sits at the retail end of the GB energy value chain: buying wholesale, holding an Ofgem supply licence, settling through Elexon, reading SMETS2 smart meters over the licensed Smart DCC network, and billing the customer, alongside solar, home battery, heat pump, EV smart-charging (Charge Anytime) and demand-flexibility (Power Move) propositions. Its parent OVO Group also owns Kaluza, an API-first energy intelligence platform licensed to utilities worldwide — the direct British analogue to Octopus Energy's Kraken — but that platform is a separate brand on a separate domain, and none of its API surface is published under OVO Energy. OVO Energy's own API posture is closed: no developer portal, no API documentation, no machine-readable contract, and no third-party route to a customer's usage or billing data. developer.ovoenergy.com, developers.ovoenergy.com, docs.ovoenergy.com and data.ovoenergy.com do not resolve; /developers, /api, /docs, /openapi.json and /.well-known/openid-configuration all return 404; api.ovoenergy.com resolves and is live but answers every path with a bare text/plain 404 ("No context-path matches the request URI"). The only consumer data surface found is undocumented and unsupported — smartpaymapi.ovoenergy.com/usage/api/half-hourly returns HTTP 401 JSON to an anonymous caller and serves half-hourly smart-meter consumption only to a signed-in OVO customer session. Britain mandated the metering INFRASTRUCTURE, not a data right: OVO is bound by the Smart Energy Code and the DCC, which is live and implemented, but no consumer data-portability mandate equivalent to Australia's Consumer Data Right or Ontario's Green Button applies to it. The Australian namesake, OVO Energy Pty Ltd, IS a designated CDR energy data holder — but it was acquired outright by AGL Energy in April 2024 and is no longer part of this organization, so that obligation does not attach here. Consumer data is closed, open market data is published by other GB parties (NESO, Elexon, the DNOs), and on 11 May 2026 OVO agreed the sale of this retail business to E.ON, with Kaluza explicitly excluded from the deal.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ovo-energy/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ovo-energy/refs/heads/main/apis.yml)
+**Areas:** Energy · United Kingdom · Utilities · Electricity · Gas · Smart Metering · Energy Retail · Solar · EV Charging · Demand Response
 
-## Tags
+## OVO Energy on APIs.io
 
-- Energy
-- United Kingdom
-- Utilities
-- Electricity
-- Gas
-- Smart Metering
-- Energy Retail
-- Solar
-- EV Charging
-- Demand Response
+Everything profiled for OVO Energy is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ovo-energy/](https://apis.io/providers/ovo-energy/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-27
-- **Modified:** 2026-07-27
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Security (2)
 
-No public, documented APIs were found. Every developer surface probed on 2026-07-27
-returned 404 or failed to resolve. `api.ovoenergy.com` resolves and is live but answers
-every path with a bare `text/plain` 404 — `No context-path matches the request URI`.
-The one real consumer-data endpoint found,
-`https://smartpaymapi.ovoenergy.com/usage/api/half-hourly`, returns HTTP 401 JSON to an
-anonymous caller: it is undocumented, unsupported, and reachable only with a signed-in
-OVO customer session. It is deliberately **not** listed as an API here. See `review.yml`
-for the full probe log.
+Authentication, trust centre, and vulnerability disclosure.
 
-## Artifacts
+- [Ovo Energy Domain Security](https://apis.io/security/ovo-energy/ovo-energy-domain-security/)
+- [Ovo Energy Vulnerability Disclosure](https://apis.io/security/ovo-energy/ovo-energy-vulnerability-disclosure/)
 
-Round 2 enrichment (2026-07-27) re-ran contract discovery against every OVO host and found
-no machine-readable contract — no OpenAPI, no GraphQL, no AsyncAPI, no MCP server. What it
-did harvest is the security, packaging and conformance posture:
+## Where to find this API
 
-- `well-known/ovo-energy-well-known.yml` — `/.well-known/` probe index across five hosts
-- `well-known/ovo-energy-security.txt` — verbatim RFC 9116 security.txt (the only
-  `.well-known` document served anywhere on the estate)
-- `security/ovo-energy-vulnerability-disclosure.yml` — the responsible-disclosure programme
-  (Tines intake, no bug bounty, conditional no-legal-action commitment)
-- `security/ovo-energy-domain-security.yml` — TLS/HSTS/cert/DNSSEC/CAA/SPF/DMARC for eight
-  hosts and two domains
-- `conformance/ovo-energy-conformance.yml` — what OVO conforms to (RFC 9116, GB Smart Energy
-  Code, HSTS, DMARC `p=reject`) and what it demonstrably does not (OpenAPI, OIDC, OAuth2,
-  RFC 9457, Green Button, CDR, OCPP/OCPI, OpenADR)
-- `packages/ovo-energy-packages.yml` — first-party OVO Technology open-source libraries
-  (npm `@ovotech`, Maven `com.ovoenergy`, Go) and the one **community** Python client; there
-  is no first-party API client SDK, because there is no API
-- `llms/ovo-energy-llms.txt` — generated llms.txt (OVO publishes none; `/llms.txt` 404s)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.ovoenergy.com/)
-- [About](https://www.ovoenergy.com/about)
-- [Group Website](https://company.ovo.com/)
-- [GitHub Organization](https://github.com/ovotech)
-- [LinkedIn](https://www.linkedin.com/company/ovoenergy)
-- [Blog](https://www.ovoenergy.com/blog)
+- [Pricing](https://www.ovoenergy.com/home-energy-plans)
+- [Sign up](https://www.ovoenergy.com/get-energy-quote)
 - [Support](https://www.ovoenergy.com/help)
-- [Forum](https://forum.ovoenergy.com/)
-- [Customer Portal / Login](https://my.ovoenergy.com/login)
-- [Sign Up (energy quote)](https://www.ovoenergy.com/get-energy-quote)
-- [Pricing (home energy plans)](https://www.ovoenergy.com/home-energy-plans)
-- [Privacy Policy](https://www.ovoenergy.com/privacy-policy)
-- [Terms of Service](https://www.ovoenergy.com/terms)
-- [security.txt](https://www.ovoenergy.com/.well-known/security.txt)
-- [Security / responsible disclosure](https://www.ovoenergy.com/security)
-- [Careers](https://careers.ovo.com/)
+- [Blog](https://www.ovoenergy.com/blog)
+- [Security](https://www.ovoenergy.com/security)
+- [Terms of service](https://www.ovoenergy.com/terms)
+- [Privacy policy](https://www.ovoenergy.com/privacy-policy)
+- [GitHub](https://github.com/ovotech)
 
-## Mandate Posture
+## API Evangelist rating
 
-- **Mandate regime:** `smart-meter-infrastructure` — the GB Smart Energy Code and the
-  Smart DCC licensed monopoly. This is an infrastructure obligation on licensed suppliers,
-  **not** a consumer data right.
-- **Mandate status:** `live-implemented` — OVO demonstrably operates a smart-meter estate
-  at scale (eleven smart-meter product/help pages in the sitemap, including a SMETS1 4G
-  upgrade programme) and a live half-hourly consumption endpoint proves DCC-sourced data
-  actually flows to customers. The implementation surface is the private licensed DCC User
-  Interface and an internal customer API, not a public API.
-- **CDR homonym trap:** `cdr-energy` does **not** apply. OVO Energy Pty Ltd in Australia
-  publishes a Consumer Data Right policy and is a designated CDR energy data holder — but
-  AGL Energy took it to 100% ownership in April 2024, so that obligation belongs to an
-  AGL-owned company, not to this one. Do not attribute it here.
-- **Data standard:** no standard reference found. SMETS1/SMETS2 metering under the Smart
-  Energy Code is the only standard in play, and it is infrastructure, not a published API
-  contract. No Green Button / ESPI, no CDR Consumer Data Standards, no OpenAPI, no
-  OCPP/OCPI, no IEC CIM, no IEEE 2030.5, no OpenADR.
-- **Consumer data API:** none documented. **Open market data:** none — GB open market and
-  system data comes from NESO, Elexon and the DNOs, not from a retailer.
-- **Access gate:** `customer-account-required` — the only route to energy data is your own
-  account, through `my.ovoenergy.com` or the OVO app. There is no developer programme to
-  apply to.
+**Kin Score 18.5** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-## Corporate Note
+| Facet | Score |
+|---|---|
+| Discoverability | 48.2 |
+| Contract quality | 0.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 7.1 |
+| Access clarity | 44.7 |
 
-On 11 May 2026 OVO agreed the sale of this UK energy retail business to E.ON (and its Home
-Services business to Hometree), subject to regulatory approval and expected to complete
-later in 2026. The Kaluza software platform is explicitly excluded from the sale; E.ON will
-continue the existing Kaluza platform licence for OVO's customer base.
+**Agent readiness 0.0** — human-only
 
-## Maintainers
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-- Kin Lane — kin@apievangelist.com
+**Regulatory alignment 20.5** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ovo-energy/](https://apis.io/providers/ovo-energy/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OVO Energy: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ovo-energy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
